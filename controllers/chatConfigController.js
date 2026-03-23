@@ -36,6 +36,7 @@ export const createChatConfig = async (req, res) => {
         const result = await pool.query(
             `
             INSERT INTO chat_configs (
+                is_active,
                 admin_id,
                 title,
                 slug,
@@ -47,7 +48,7 @@ export const createChatConfig = async (req, res) => {
                 farewell_message,
                 summary_instructions
             )
-            VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+            VALUES (true, $1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
             RETURNING *
             `,
             [

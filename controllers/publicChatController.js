@@ -1,14 +1,14 @@
-import { getActiveConfigById } from '../services/chatSessionService.js'
+import { getActiveConfigById, getActiveConfigBySlug } from '../services/chatSessionService.js'
 
 import { restoreOrCreateSession } from '../services/chatOrchestrator.js'
 
 export const restoreOrCreateSessionController = async (req, res) => {
     try {
-        const { configId } = req.params
+        const { slug } = req.params
         const { sessionId } = req.body || {}
 
         const result = await restoreOrCreateSession({
-            configId,
+            slug,
             sessionId,
         })
 
@@ -31,9 +31,9 @@ export const restoreOrCreateSessionController = async (req, res) => {
 
 export const getPublicChatConfig = async (req, res) => {
     try {
-        const { configId } = req.params
+        const { slug } = req.params
 
-        const config = await getActiveConfigById(configId)
+        const config = await getActiveConfigBySlug(slug)
 
         if (!config) {
             return res.status(404).json({

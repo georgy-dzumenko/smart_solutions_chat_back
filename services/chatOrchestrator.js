@@ -4,14 +4,15 @@ import {
     getActiveConfigById,
     getSessionWithConfig,
     getSessionByIdAndConfigId,
+    getActiveConfigBySlug,
 } from './chatSessionService.js'
 import { createMessage, getMessagesBySessionId } from './chatMessageService.js'
 import { generateAiReply, generateInitialAssistantMessage } from './aiReplyService.js'
 import { generateSessionSummary } from './aiSummaryService.js'
 import { createSessionReport } from './chatReportService.js'
 
-export const restoreOrCreateSession = async ({ configId, sessionId = null }) => {
-    const config = await getActiveConfigById(configId)
+export const restoreOrCreateSession = async ({ slug, sessionId = null }) => {
+    const config = await getActiveConfigBySlug(slug)
 
     if (!config) {
         throw new Error('Chat config not found or inactive')

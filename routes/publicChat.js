@@ -3,7 +3,7 @@ import { getPublicChatConfig, restoreOrCreateSessionController } from '../contro
 
 const router = express.Router()
 
-router.get('/public/chat-configs/:configId', getPublicChatConfig)
-router.post('/public/chat-configs/:configId/session', restoreOrCreateSessionController)
+router.get('/public/chat-configs/:slug', getPublicChatConfig)
+router.post('/public/chat-configs/:slug/session', restoreOrCreateSessionController)
 
 export default router

@@ -28,11 +28,25 @@ export const getActiveConfigById = async (configId) => {
     return result.rows[0] || null
 }
 
+export const getActiveConfigBySlug = async (slug) => {
+    const result = await pool.query(
+        `
+        SELECT *
+        FROM chat_configs
+        WHERE slug = $1 AND is_active = true
+        LIMIT 1
+        `,
+        [slug]
+    )
+
+    return result.rows[0] || null
+}
+
 export const createChatSession = async (configId) => {
     const result = await pool.query(
         `
-        INSERT INTO chat_sessions (config_id)
-        VALUES ($1)
+        INSERT INTO chat_sessions (status, config_id)
+        VALUES ('active', $1)
         RETURNING *
         `,
         [configId]
